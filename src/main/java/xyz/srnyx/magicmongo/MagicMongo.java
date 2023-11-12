@@ -75,7 +75,7 @@ public class MagicMongo {
      * @param   <T>     the type of the class
      */
     @NotNull
-    public <T> MagicCollection<T> getMongoCollection(@NotNull Class<T> clazz) {
+    public <T> MagicCollection<T> getCollection(@NotNull Class<T> clazz) {
         final MagicCollection<?> collection = mongoCollections.get(clazz);
         if (collection == null) throw new IllegalArgumentException("No MagicCollection found for class " + clazz);
         return (MagicCollection<T>) collection;
@@ -83,16 +83,16 @@ public class MagicMongo {
 
     /**
      * Gets the {@link MagicCollection} with the given name.
-     * <br><b>Highly recommended to use {@link #getMongoCollection(Class)} instead!</b>
+     * <br><b>Highly recommended to use {@link #getCollection(Class)} instead!</b>
      *
      * @param   name    the name of the {@link MagicCollection} to get
      *
      * @return          the {@link MagicCollection} with the given name
      *
-     * @see             #getMongoCollection(Class)
+     * @see             #getCollection(Class)
      */
     @NotNull
-    public MagicCollection<?> getMongoCollection(@NotNull String name) {
+    public MagicCollection<?> getCollection(@NotNull String name) {
         final MagicCollection<?> collection = mongoCollections.values().stream()
                 .filter(collectionFilter -> collectionFilter.collection.getNamespace().getCollectionName().equals(name))
                 .findFirst()
