@@ -1,6 +1,5 @@
 import xyz.srnyx.gradlegalaxy.data.pom.DeveloperData
 import xyz.srnyx.gradlegalaxy.data.pom.LicenseData
-import xyz.srnyx.gradlegalaxy.utility.relocate
 import xyz.srnyx.gradlegalaxy.utility.setupJava
 import xyz.srnyx.gradlegalaxy.utility.setupPublishing
 
@@ -17,9 +16,6 @@ setupPublishing(
     url = "https://magic-mongo.srnyx.com",
     licenses = listOf(LicenseData.MIT),
     developers = listOf(DeveloperData.srnyx))
-
-relocate("com.mongodb")
-relocate("org.bson")
 
 repositories.mavenCentral()
 dependencies {
