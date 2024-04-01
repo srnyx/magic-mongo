@@ -10,15 +10,16 @@ plugins {
     id("com.github.johnrengelman.shadow") version "8.1.1"
 }
 
-setupJava("xyz.srnyx", "1.0.0", "Common framework for srnyx's MongoDB management", JavaVersion.VERSION_1_8)
+setupJava("xyz.srnyx", "1.1.0", "Common framework for srnyx's MongoDB management", JavaVersion.VERSION_1_8)
+
+repositories.mavenCentral()
+dependencies {
+    implementation("org.mongodb", "mongodb-driver-sync", "5.0.0")
+    compileOnly("org.jetbrains" , "annotations", "24.1.0")
+}
+
 setupPublishing(
     artifactId = "magic-mongo",
     url = "https://magic-mongo.srnyx.com",
     licenses = listOf(LicenseData.MIT),
     developers = listOf(DeveloperData.srnyx))
-
-repositories.mavenCentral()
-dependencies {
-    implementation("org.mongodb", "mongodb-driver-sync", "4.11.1")
-    compileOnly("org.jetbrains" , "annotations", "24.0.1")
-}
