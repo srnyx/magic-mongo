@@ -10,7 +10,7 @@ plugins {
     id("com.github.johnrengelman.shadow") version "8.1.1"
 }
 
-setupJava("xyz.srnyx", "1.2.0", "Common framework for srnyx's MongoDB management", JavaVersion.VERSION_1_8)
+setupJava("xyz.srnyx", "1.2.1", "Common framework for srnyx's MongoDB management", JavaVersion.VERSION_1_8)
 
 repositories.mavenCentral()
 dependencies {
