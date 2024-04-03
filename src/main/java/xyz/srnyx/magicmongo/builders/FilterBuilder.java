@@ -15,11 +15,16 @@ import java.util.function.BinaryOperator;
 public class FilterBuilder extends MongoBsonBuilder<FilterBuilder> {
     /**
      * Creates a new {@link FilterBuilder} instance with no starting filter
-     *
-     * @see MongoBsonBuilder#MongoBsonBuilder()
      */
-    public FilterBuilder() {
-        // Only exists to provide a Javadoc
+    public FilterBuilder() {}
+
+    /**
+     * Creates a new {@link FilterBuilder} instance with the given filter
+     *
+     * @param   filter  the {@link Bson filter} to start with
+     */
+    public FilterBuilder(@NotNull Bson filter) {
+        super(filter);
     }
 
     /**

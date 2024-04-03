@@ -14,6 +14,20 @@ import java.util.List;
  */
 public class IndexBuilder extends MongoBsonBuilder<IndexBuilder> {
     /**
+     * Creates a new {@link IndexBuilder} instance with no starting index
+     */
+    public IndexBuilder() {}
+    
+    /**
+     * Creates a new {@link IndexBuilder} instance with the given index
+     *
+     * @param   index   the {@link Bson index} to start with
+     */
+    public IndexBuilder(@NotNull Bson index) {
+        super(index);
+    }
+
+    /**
      * Creates a new {@link IndexBuilder} instance with the given indexes
      *
      * @param   indexes the {@link Bson indexes} to start with

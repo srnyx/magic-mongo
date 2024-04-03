@@ -14,6 +14,20 @@ import java.util.List;
  */
 public class UpdateBuilder extends MongoBsonBuilder<UpdateBuilder> {
     /**
+     * Creates a new {@link UpdateBuilder} instance with no starting update
+     */
+    public UpdateBuilder() {}
+
+    /**
+     * Creates a new {@link UpdateBuilder} instance with the given update
+     *
+     * @param   update  the {@link Bson update} to start with
+     */
+    public UpdateBuilder(@NotNull Bson update) {
+        super(update);
+    }
+
+    /**
      * Creates a new {@link UpdateBuilder} instance with the given updates
      *
      * @param   updates the {@link Bson updates} to start with

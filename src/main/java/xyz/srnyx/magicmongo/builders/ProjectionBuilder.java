@@ -14,6 +14,20 @@ import java.util.List;
  */
 public class ProjectionBuilder extends MongoBsonBuilder<ProjectionBuilder> {
     /**
+     * Creates a new {@link ProjectionBuilder} instance with no starting projection
+     */
+    public ProjectionBuilder() {}
+
+    /**
+     * Creates a new {@link ProjectionBuilder} instance with the given projection
+     *
+     * @param   projection  the {@link Bson projection} to start with
+     */
+    public ProjectionBuilder(@NotNull Bson projection) {
+        super(projection);
+    }
+
+    /**
      * Creates a new {@link ProjectionBuilder} instance with the given projections
      *
      * @param   projections the {@link Bson projections} to start with

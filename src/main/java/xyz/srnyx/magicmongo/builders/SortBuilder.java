@@ -14,6 +14,20 @@ import java.util.List;
  */
 public class SortBuilder extends MongoBsonBuilder<SortBuilder> {
     /**
+     * Creates a new {@link SortBuilder} instance with no starting sort
+     */
+    public SortBuilder() {}
+
+    /**
+     * Creates a new {@link SortBuilder} instance with the given sort
+     *
+     * @param   sort    the {@link Bson sort} to start with
+     */
+    public SortBuilder(@NotNull Bson sort) {
+        super(sort);
+    }
+
+    /**
      * Creates a new {@link SortBuilder} instance with the given sorts
      *
      * @param   sorts the {@link Bson sorts} to start with
