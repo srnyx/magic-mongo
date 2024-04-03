@@ -1,4 +1,4 @@
-package xyz.srnyx.magicmongo;
+package xyz.srnyx.magicmongo.builders;
 
 import com.mongodb.client.model.Updates;
 
@@ -20,11 +20,16 @@ public class UpdateBuilder {
     @Nullable private Bson update;
 
     /**
+     * Creates a new {@link UpdateBuilder} instance with no starting {@link #update}
+     */
+    public UpdateBuilder() {}
+
+    /**
      * Creates a new {@link UpdateBuilder} instance with the given {@link #update}
      *
      * @param   update  the {@link Bson update} to start with
      */
-    public UpdateBuilder(@NotNull Bson update) {
+    public UpdateBuilder(@Nullable Bson update) {
         this.update = update;
     }
 
@@ -56,9 +61,17 @@ public class UpdateBuilder {
     }
 
     /**
-     * Creates a new {@link UpdateBuilder} instance with no starting {@link #update}
+     * Returns the final/built {@link Bson update}
+     *
+     * @return                          the final/built {@link Bson update}
+     *
+     * @throws  IllegalStateException   if the {@link #update} is null (only ever happens if {@link UpdateBuilder the builder} is created with no starting {@link #update})
      */
-    public UpdateBuilder() {}
+    @NotNull
+    public Bson build() {
+        if (update == null) throw new IllegalStateException("update cannot be null");
+        return update;
+    }
 
     /**
      * Combines the given {@link Bson update} with the current {@link #update}
@@ -71,18 +84,5 @@ public class UpdateBuilder {
     public UpdateBuilder add(@NotNull Bson newUpdate) {
         update = Updates.combine(update, newUpdate);
         return this;
-    }
-
-    /**
-     * Returns the final/built {@link Bson update}
-     *
-     * @return                          the final/built {@link Bson update}
-     *
-     * @throws  IllegalStateException   if the {@link #update} is null (only ever happens if {@link UpdateBuilder the builder} is created with no starting {@link #update})
-     */
-    @NotNull
-    public Bson build() {
-        if (update == null) throw new IllegalStateException("update cannot be null");
-        return update;
     }
 }
