@@ -5,60 +5,38 @@ import com.mongodb.client.model.Filters;
 import org.bson.conversions.Bson;
 
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.function.BinaryOperator;
 
 
-public class FilterBuilder {
+/**
+ * A simple builder for {@link Filters MongoDB filters}
+ */
+public class FilterBuilder extends MongoBsonBuilder<FilterBuilder> {
     /**
-     * The {@link Bson filter} to build
-     */
-    @Nullable private Bson filter;
-
-    /**
-     * Creates a new {@link FilterBuilder} instance with no starting {@link #filter}
-     */
-    public FilterBuilder() {}
-
-    /**
-     * Creates a new {@link FilterBuilder} instance with the given {@link #filter}
+     * Creates a new {@link FilterBuilder} instance with no starting filter
      *
-     * @param   filter  the {@link Bson filter} to start with
+     * @see MongoBsonBuilder#MongoBsonBuilder()
      */
-    public FilterBuilder(@Nullable Bson filter) {
-        this.filter = filter;
+    public FilterBuilder() {
+        // Only exists to provide a Javadoc
     }
 
     /**
-     * Returns the final/built {@link Bson filter}
+     * Adds a new {@link Bson filter} to the current filter
      *
-     * @return                          the final/built {@link Bson filter}
-     *
-     * @throws  IllegalStateException   if the {@link #filter} is null (only ever happens if {@link FilterBuilder the builder} is created with no starting {@link #filter})
-     */
-    @NotNull
-    public Bson build() {
-        if (filter == null) throw new IllegalStateException("filter cannot be null");
-        return filter;
-    }
-
-    /**
-     * Adds a new {@link Bson filter} to the current {@link #filter}
-     *
-     * @param   filterFunction  the {@link BinaryOperator} to apply to the current {@link #filter} with the new {@link Bson filter}
+     * @param   filterFunction  the {@link BinaryOperator} to apply to the current filter with the new {@link Bson filter}
      * @param   newFilter       the new {@link Bson filter} to add
      *
      * @return                  the current {@link FilterBuilder}
      */
     @NotNull
     public FilterBuilder add(@NotNull BinaryOperator<Bson> filterFunction, @NotNull Bson newFilter) {
-        filter = filterFunction.apply(filter, newFilter);
-        return this;
+        return set(bson == null ? newFilter : filterFunction.apply(bson, newFilter));
     }
 
     /**
-     * Adds a new {@link Bson filter} to the current {@link #filter} using {@link Filters#and(Bson...)}
+     * Adds a new {@link Bson filter} to the current filter using {@link Filters#and(Bson...)}
      *
      * @param   newFilter   the new {@link Bson filter} to add
      *
@@ -70,7 +48,7 @@ public class FilterBuilder {
     }
 
     /**
-     * Adds a new {@link Bson filter} to the current {@link #filter} using {@link Filters#or(Bson...)}
+     * Adds a new {@link Bson filter} to the current filter using {@link Filters#or(Bson...)}
      *
      * @param   newFilter   the new {@link Bson filter} to add
      *
@@ -82,7 +60,7 @@ public class FilterBuilder {
     }
 
     /**
-     * Adds a new {@link Bson filter} to the current {@link #filter} using {@link Filters#nor(Bson...)}
+     * Adds a new {@link Bson filter} to the current filter using {@link Filters#nor(Bson...)}
      *
      * @param   newFilter   the new {@link Bson filter} to add
      *
