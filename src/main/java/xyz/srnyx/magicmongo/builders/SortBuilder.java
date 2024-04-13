@@ -54,6 +54,11 @@ public class SortBuilder extends MongoBsonBuilder<SortBuilder> {
         super(sortBuilder.bson);
     }
 
+    @NotNull @Override
+    public Bson ifNull() {
+        return Sorts.ascending("_id");
+    }
+
     /**
      * Combines the given {@link Bson sort} with the {@link #bson current sort} using {@link Sorts#orderBy(Bson...)}
      *

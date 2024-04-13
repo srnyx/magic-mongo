@@ -54,6 +54,11 @@ public class UpdateBuilder extends MongoBsonBuilder<UpdateBuilder> {
         super(updateBuilder.bson);
     }
 
+    @NotNull @Override
+    public Bson ifNull() {
+        return Updates.combine();
+    }
+
     /**
      * Combines the given {@link Bson update} with the current update
      *

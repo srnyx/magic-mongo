@@ -54,6 +54,11 @@ public class ProjectionBuilder extends MongoBsonBuilder<ProjectionBuilder> {
         super(projectionBuilder.bson);
     }
 
+    @NotNull @Override
+    public Bson ifNull() {
+        return Projections.include("_id");
+    }
+
     /**
      * Combines the given {@link Bson projection} with the {@link #bson current projection} using {@link Projections#fields(Bson...)}
      *

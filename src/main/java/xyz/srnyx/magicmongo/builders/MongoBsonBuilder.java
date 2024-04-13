@@ -36,6 +36,14 @@ public abstract class MongoBsonBuilder<T extends MongoBsonBuilder<T>> {
     }
 
     /**
+     * The {@link Bson} to return if the {@link #bson} is null when {@link #build() building}
+     *
+     * @return  the {@link Bson} to return if the {@link #bson} is null
+     */
+    @NotNull
+    public abstract Bson ifNull();
+
+    /**
      * Builds the {@link Bson} object
      *
      * @return                          the built {@link Bson} object
@@ -44,8 +52,7 @@ public abstract class MongoBsonBuilder<T extends MongoBsonBuilder<T>> {
      */
     @NotNull
     public Bson build() {
-        if (bson == null) throw new IllegalStateException("bson cannot be null!");
-        return bson;
+        return bson != null ? bson : ifNull();
     }
 
     /**

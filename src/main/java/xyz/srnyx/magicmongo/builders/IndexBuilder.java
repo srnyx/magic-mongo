@@ -54,6 +54,11 @@ public class IndexBuilder extends MongoBsonBuilder<IndexBuilder> {
         super(indexBuilder.bson);
     }
 
+    @NotNull @Override
+    public Bson ifNull() {
+        return Indexes.ascending("_id");
+    }
+
     /**
      * Combines the given {@link Bson index} with the {@link #bson current index} using {@link Indexes#compoundIndex(Bson...)}
      *

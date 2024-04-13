@@ -27,6 +27,11 @@ public class FilterBuilder extends MongoBsonBuilder<FilterBuilder> {
         super(filter);
     }
 
+    @NotNull @Override
+    public Bson ifNull() {
+        return Filters.empty();
+    }
+
     /**
      * Adds a new {@link Bson filter} to the current filter
      *
