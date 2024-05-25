@@ -21,7 +21,11 @@ import java.util.Map;
  */
 public class MagicMongo {
     /**
-     * A map of {@link MagicCollection mongo collections} for the bot
+     * The {@link MongoDatabase}
+     */
+    @NotNull public MongoDatabase database;
+    /**
+     * A map of {@link MagicCollection mongo collections}
      */
     @NotNull public final Map<Class<?>, MagicCollection<?>> mongoCollections = new HashMap<>();
 
@@ -29,40 +33,78 @@ public class MagicMongo {
      * Creates a new {@link MagicMongo} instance for managing MongoDB collections
      *
      * @param   connectionUrl               the connection URL for the MongoDB database
-     * @param   collections                 a map of strings (names) and classes (types) of collections in the MongoDB database
      * @param   codecRegistry               the {@link CodecRegistry} to use for the MongoDB database
      *
      * @throws  IllegalArgumentException    if no database name is found in the connection URL
      */
-    public MagicMongo(@NotNull String connectionUrl, @NotNull Map<String, Class<?>> collections, @Nullable CodecRegistry codecRegistry) {
+    public MagicMongo(@NotNull String connectionUrl, @Nullable CodecRegistry codecRegistry) {
         // Get database name
         final ConnectionString connection = new ConnectionString(connectionUrl);
         final String databaseName = connection.getDatabase();
         if (databaseName == null) throw new IllegalArgumentException("No database name found in connection URL " + connectionUrl);
 
         // Connect to database
-        MongoDatabase database = MongoClients.create(connection).getDatabase(databaseName);
+        database = MongoClients.create(connection).getDatabase(databaseName);
         if (codecRegistry != null) database = database.withCodecRegistry(codecRegistry);
-
-        // Get/set collections
-        for (final Map.Entry<String, Class<?>> entry : collections.entrySet()) {
-            final Class<?> clazz = entry.getValue();
-            mongoCollections.put(clazz, new MagicCollection<>(database, entry.getKey(), clazz));
-        }
     }
 
     /**
      * Creates a new {@link MagicMongo} instance for managing MongoDB collections with the default {@link CodecRegistry}
      *
      * @param   connectionUrl               the connection URL for the MongoDB database
-     * @param   collections                 a map of strings (names) and classes (types) of collections in the MongoDB database
      *
      * @throws  IllegalArgumentException    if no database name is found in the connection URL
      */
-    public MagicMongo(@NotNull String connectionUrl, @NotNull Map<String, Class<?>> collections) {
-        this(connectionUrl, collections, CodecRegistries.fromRegistries(
+    public MagicMongo(@NotNull String connectionUrl) {
+        this(connectionUrl, CodecRegistries.fromRegistries(
                 MongoClientSettings.getDefaultCodecRegistry(),
                 CodecRegistries.fromProviders(PojoCodecProvider.builder().automatic(true).build())));
+    }
+
+    /**
+     * Constructs, but doesn't load, a new {@link MagicCollection} with the given name and class
+     * <br>Useful if you want to store collections in your own way (e.g. if a class is used for multiple collections)
+     *
+     * @param   name    the name of the collection
+     * @param   clazz   the class of the collection
+     *
+     * @return          the new {@link MagicCollection}
+     *
+     * @param   <T>     the type of the class
+     */
+    @NotNull
+    public <T> MagicCollection<T> newCollection(@NotNull String name, @NotNull Class<T> clazz) {
+        return new MagicCollection<>(database, name, clazz);
+    }
+
+    /**
+     * Loads a new {@link MagicCollection} with the given name and class
+     *
+     * @param   name    the name of the collection
+     * @param   clazz   the class of the collection
+     *
+     * @return          the new {@link MagicCollection}
+     *
+     * @param   <T>     the type of the class
+     */
+    @NotNull
+    public <T> MagicCollection<T> loadCollection(@NotNull String name, @NotNull Class<T> clazz) {
+        final MagicCollection<T> collection = newCollection(name, clazz);
+        mongoCollections.put(clazz, collection);
+        return collection;
+    }
+
+    /**
+     * Loads many new {@link MagicCollection MagicCollections} with the given names and classes
+     *
+     * @param   collections a map of strings (names) and classes (types) of collections to load
+     *
+     * @return              this {@link MagicMongo} instance for chaining
+     */
+    @NotNull
+    public MagicMongo loadCollections(@NotNull Map<String, Class<?>> collections) {
+        collections.forEach(this::loadCollection);
+        return this;
     }
 
     /**
