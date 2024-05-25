@@ -6,6 +6,8 @@ import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.FindOneAndUpdateOptions;
 import com.mongodb.client.model.ReturnDocument;
 import com.mongodb.client.model.UpdateOptions;
+import com.mongodb.client.result.DeleteResult;
+import com.mongodb.client.result.UpdateResult;
 
 import org.bson.conversions.Bson;
 
@@ -80,9 +82,12 @@ public class MagicCollection<T> {
      *
      * @param   filter  the filter to apply
      * @param   update  the update to apply
+     *
+     * @return          the {@link UpdateResult} of the operation
      */
-    public void updateOne(@NotNull Bson filter, @NotNull Bson update) {
-        collection.updateOne(filter, update);
+    @NotNull
+    public UpdateResult updateOne(@NotNull Bson filter, @NotNull Bson update) {
+        return collection.updateOne(filter, update);
     }
 
     /**
@@ -90,9 +95,12 @@ public class MagicCollection<T> {
      *
      * @param   filter  the filter to apply
      * @param   update  the update to apply
+     *
+     * @return          the {@link UpdateResult} of the operation
      */
-    public void upsertOne(@NotNull Bson filter, @NotNull Bson update) {
-        collection.updateOne(filter, update, new UpdateOptions().upsert(true));
+    @NotNull
+    public UpdateResult upsertOne(@NotNull Bson filter, @NotNull Bson update) {
+        return collection.updateOne(filter, update, new UpdateOptions().upsert(true));
     }
 
     /**
@@ -128,9 +136,12 @@ public class MagicCollection<T> {
      * Deletes a document in the collection
      *
      * @param   filter  the filter to apply
+     *
+     * @return          the {@link DeleteResult} of the operation
      */
-    public void deleteOne(@NotNull Bson filter) {
-        collection.deleteOne(filter);
+    @NotNull
+    public DeleteResult deleteOne(@NotNull Bson filter) {
+        return collection.deleteOne(filter);
     }
 
     /**
@@ -138,8 +149,11 @@ public class MagicCollection<T> {
      *
      * @param   field   the field to filter by
      * @param   value   the value of the field to filter by
+     *
+     * @return          the {@link DeleteResult} of the operation
      */
-    public void deleteOne(@NotNull String field, @Nullable Object value) {
-        deleteOne(Filters.eq(field, value));
+    @NotNull
+    public DeleteResult deleteOne(@NotNull String field, @Nullable Object value) {
+        return deleteOne(Filters.eq(field, value));
     }
 }
