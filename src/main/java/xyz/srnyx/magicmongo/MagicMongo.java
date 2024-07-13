@@ -2,6 +2,7 @@ package xyz.srnyx.magicmongo;
 
 import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
+import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoDatabase;
 
@@ -20,6 +21,10 @@ import java.util.Map;
  * A class for managing MongoDB collections using {@link MagicCollection MagicCollections}
  */
 public class MagicMongo {
+    /**
+     * The {@link MongoClient}
+     */
+    @NotNull public MongoClient client;
     /**
      * The {@link MongoDatabase}
      */
@@ -44,7 +49,8 @@ public class MagicMongo {
         if (databaseName == null) throw new IllegalArgumentException("No database name found in connection URL " + connectionUrl);
 
         // Connect to database
-        database = MongoClients.create(connection).getDatabase(databaseName);
+        client = MongoClients.create(connection);
+        database = client.getDatabase(databaseName);
         if (codecRegistry != null) database = database.withCodecRegistry(codecRegistry);
     }
 
