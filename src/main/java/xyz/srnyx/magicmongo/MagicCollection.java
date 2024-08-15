@@ -16,6 +16,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 /**
@@ -47,9 +48,9 @@ public class MagicCollection<T> {
      *
      * @return          the document found, or null if none was found
      */
-    @Nullable
-    public T findOne(@NotNull Bson filter) {
-        return collection.find(filter).first();
+    @NotNull
+    public Optional<T> findOne(@NotNull Bson filter) {
+        return Optional.ofNullable(collection.find(filter).first());
     }
 
     /**
@@ -60,9 +61,9 @@ public class MagicCollection<T> {
      *
      * @return          the document found, or null if none was found
      */
-    @Nullable
-    public T findOne(@NotNull String field, @Nullable Object value) {
-        return collection.find(Filters.eq(field, value)).first();
+    @NotNull
+    public Optional<T> findOne(@NotNull String field, @Nullable Object value) {
+        return findOne(Filters.eq(field, value));
     }
 
     /**
@@ -111,10 +112,10 @@ public class MagicCollection<T> {
      *
      * @return          the updated document
      */
-    @Nullable
-    public T findOneAndUpdate(@NotNull Bson filter, @NotNull Bson update) {
-        return collection.findOneAndUpdate(filter, update, new FindOneAndUpdateOptions()
-                .returnDocument(ReturnDocument.AFTER));
+    @NotNull
+    public Optional<T> findOneAndUpdate(@NotNull Bson filter, @NotNull Bson update) {
+        return Optional.ofNullable(collection.findOneAndUpdate(filter, update, new FindOneAndUpdateOptions()
+                .returnDocument(ReturnDocument.AFTER)));
     }
 
     /**
@@ -125,11 +126,11 @@ public class MagicCollection<T> {
      *
      * @return          the updated or inserted document
      */
-    @Nullable
-    public T findOneAndUpsert(@NotNull Bson filter, @NotNull Bson update) {
-        return collection.findOneAndUpdate(filter, update, new FindOneAndUpdateOptions()
+    @NotNull
+    public Optional<T> findOneAndUpsert(@NotNull Bson filter, @NotNull Bson update) {
+        return Optional.ofNullable(collection.findOneAndUpdate(filter, update, new FindOneAndUpdateOptions()
                 .returnDocument(ReturnDocument.AFTER)
-                .upsert(true));
+                .upsert(true)));
     }
 
     /**
