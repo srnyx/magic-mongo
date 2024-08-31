@@ -56,9 +56,7 @@ public class MagicMongo {
      * @param   connectionUrl   the connection URL for the MongoDB database
      */
     public MagicMongo(@NotNull String connectionUrl) {
-        this(connectionUrl, CodecRegistries.fromRegistries(
-                MongoClientSettings.getDefaultCodecRegistry(),
-                CodecRegistries.fromProviders(PojoCodecProvider.builder().automatic(true).build())));
+        this(connectionUrl, getDefaultCodecRegistry());
     }
 
     /**
@@ -129,5 +127,12 @@ public class MagicMongo {
         final MagicDatabase collection = databases.get(name);
         if (collection == null) throw new IllegalArgumentException("No MagicDatabase found with name " + name);
         return collection;
+    }
+
+    @NotNull
+    public static CodecRegistry getDefaultCodecRegistry() {
+        return CodecRegistries.fromRegistries(
+                MongoClientSettings.getDefaultCodecRegistry(),
+                CodecRegistries.fromProviders(PojoCodecProvider.builder().automatic(true).build()));
     }
 }

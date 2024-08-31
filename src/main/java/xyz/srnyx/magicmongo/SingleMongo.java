@@ -21,4 +21,8 @@ public class SingleMongo extends MagicMongo {
         super(connectionUrl, codecRegistry);
         database = Objects.requireNonNull(databases.get(connection.getDatabase()), "Database name not specified in connection URL: " + connectionUrl);
     }
+
+    public SingleMongo(@NotNull String connectionUrl) {
+        this(connectionUrl, getDefaultCodecRegistry());
+    }
 }
