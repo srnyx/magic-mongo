@@ -68,8 +68,8 @@ public class MagicMongo {
      */
     @NotNull
     public MagicDatabase newMagicDatabase(@NotNull String name) {
-        final MongoDatabase database = client.getDatabase(name);
-        if (codecRegistry != null) database.withCodecRegistry(codecRegistry);
+        MongoDatabase database = client.getDatabase(name);
+        if (codecRegistry != null) database = database.withCodecRegistry(codecRegistry);
         return new MagicDatabase(database);
     }
 
