@@ -21,6 +21,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 
@@ -119,8 +120,8 @@ public class MagicCollection<T> implements MongoCollection<T> {
      * @return          the updated or inserted document
      */
     @NotNull
-    public Optional<T> findOneAndUpsert(@NotNull Bson filter, @NotNull Bson update) {
-        return Optional.ofNullable(findOneAndUpdate(filter, update, new FindOneAndUpdateOptions()
+    public T findOneAndUpsert(@NotNull Bson filter, @NotNull Bson update) {
+        return Objects.requireNonNull(findOneAndUpdate(filter, update, new FindOneAndUpdateOptions()
                 .returnDocument(ReturnDocument.AFTER)
                 .upsert(true)));
     }
