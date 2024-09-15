@@ -9,14 +9,14 @@ import xyz.srnyx.gradlegalaxy.utility.setupPublishing
 plugins {
     java
     id("xyz.srnyx.gradle-galaxy") version "1.3.1"
-    id("com.gradleup.shadow") version "8.3.0"
+    id("com.gradleup.shadow") version "8.3.1"
 }
 
 setupJava("xyz.srnyx", "1.2.2", "Common framework for srnyx's MongoDB management", JavaVersion.VERSION_1_8)
 
 repository(Repository.MAVEN_CENTRAL)
 dependencies {
-    implementation("org.mongodb", "mongodb-driver-sync", "5.1.3")
+    implementation("org.mongodb", "mongodb-driver-sync", "5.1.4")
     compileOnly("org.jetbrains" , "annotations", "24.1.0")
 }
 
