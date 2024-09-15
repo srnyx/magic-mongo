@@ -17,11 +17,22 @@ public class SingleMongo extends MagicMongo {
      */
     @NotNull public final MagicDatabase database;
 
+    /**
+     * Creates a new {@link SingleMongo} instance with the specified {@link CodecRegistry}
+     *
+     * @param   connectionUrl   the connection URL for the MongoDB database
+     * @param   codecRegistry   {@link MagicMongo#codecRegistry}
+     */
     public SingleMongo(@NotNull String connectionUrl, @Nullable CodecRegistry codecRegistry) {
         super(connectionUrl, codecRegistry);
         database = Objects.requireNonNull(databases.get(connection.getDatabase()), "Database name not specified in connection URL: " + connectionUrl);
     }
 
+    /**
+     * Creates a new {@link SingleMongo} instance with the default {@link CodecRegistry}
+     *
+     * @param   connectionUrl   the connection URL for the MongoDB database
+     */
     public SingleMongo(@NotNull String connectionUrl) {
         this(connectionUrl, getDefaultCodecRegistry());
     }

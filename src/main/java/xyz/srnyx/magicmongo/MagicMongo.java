@@ -34,12 +34,18 @@ public class MagicMongo {
     /**
      * The {@link CodecRegistry} to use when creating {@link MagicDatabase MagicDatabases}
      */
-    @Nullable private final CodecRegistry codecRegistry;
+    @Nullable protected final CodecRegistry codecRegistry;
     /**
      * The {@link MagicDatabase MagicDatabases} that have been loaded
      */
     @NotNull public final Map<String, MagicDatabase> databases = new HashMap<>();
 
+    /**
+     * Creates a new {@link MagicMongo} instance with the specified {@link CodecRegistry}
+     *
+     * @param   connectionUrl   the connection URL for the MongoDB database
+     * @param   codecRegistry   {@link #codecRegistry}
+     */
     public MagicMongo(@NotNull String connectionUrl, @Nullable CodecRegistry codecRegistry) {
         connection = new ConnectionString(connectionUrl);
         client = MongoClients.create(connection);
@@ -129,6 +135,11 @@ public class MagicMongo {
         return collection;
     }
 
+    /**
+     * Gets the default {@link CodecRegistry} with the {@link PojoCodecProvider} enabled
+     *
+     * @return  the default {@link CodecRegistry}
+     */
     @NotNull
     public static CodecRegistry getDefaultCodecRegistry() {
         return CodecRegistries.fromRegistries(
