@@ -12,10 +12,12 @@ import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.conversions.Bson;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -145,6 +147,10 @@ public class MagicDatabase implements MongoDatabase {
     public ReadConcern getReadConcern() {
         return database.getReadConcern();
     }
+    @Override @Nullable
+    public Long getTimeout(@NotNull TimeUnit timeUnit) {
+        return database.getTimeout(timeUnit);
+    }
     @Override @NotNull
     public MongoDatabase withCodecRegistry(@NotNull CodecRegistry codecRegistry) {
         return database.withCodecRegistry(codecRegistry);
@@ -160,6 +166,10 @@ public class MagicDatabase implements MongoDatabase {
     @Override @NotNull
     public MongoDatabase withReadConcern(@NotNull ReadConcern readConcern) {
         return database.withReadConcern(readConcern);
+    }
+    @Override @NotNull
+    public MongoDatabase withTimeout(long timeout, @NotNull TimeUnit timeUnit) {
+        return database.withTimeout(timeout, timeUnit);
     }
     @Override @NotNull
     public MongoCollection<Document> getCollection(@NotNull String collectionName) {

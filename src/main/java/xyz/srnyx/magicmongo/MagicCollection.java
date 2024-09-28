@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -448,6 +449,10 @@ public class MagicCollection<T> implements MongoCollection<T> {
     public ReadConcern getReadConcern() {
         return collection.getReadConcern();
     }
+    @Override @Nullable
+    public Long getTimeout(@NotNull TimeUnit timeUnit) {
+        return collection.getTimeout(timeUnit);
+    }
     @Override @NotNull
     public <N> MongoCollection<N> withDocumentClass(@NotNull Class<N> clazz) {
         return collection.withDocumentClass(clazz);
@@ -467,6 +472,10 @@ public class MagicCollection<T> implements MongoCollection<T> {
     @Override @NotNull
     public MongoCollection<T> withReadConcern(@NotNull ReadConcern readConcern) {
         return collection.withReadConcern(readConcern);
+    }
+    @Override @NotNull
+    public MongoCollection<T> withTimeout(long timeout, @NotNull TimeUnit timeUnit) {
+        return collection.withTimeout(timeout, timeUnit);
     }
     @Override
     public long countDocuments() {
