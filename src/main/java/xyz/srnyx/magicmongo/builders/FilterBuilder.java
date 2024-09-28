@@ -42,7 +42,7 @@ public class FilterBuilder extends MongoBsonBuilder<FilterBuilder> {
     }
 
     @Override @NotNull
-    public MongoBsonBuilder<FilterBuilder> clone() {
+    public FilterBuilder clone() {
         return new FilterBuilder(this);
     }
 
