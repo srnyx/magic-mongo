@@ -46,17 +46,22 @@ public class IndexBuilder extends MongoBsonBuilder<IndexBuilder> {
     }
 
     /**
-     * Creates a new {@link IndexBuilder} instance with the given {@link IndexBuilder}
+     * Duplicates the given {@link IndexBuilder} instance
      *
-     * @param   indexBuilder    the {@link IndexBuilder} to start with
+     * @param   builder the {@link IndexBuilder} to duplicate
      */
-    public IndexBuilder(@NotNull IndexBuilder indexBuilder) {
-        super(indexBuilder.bson);
+    public IndexBuilder(@NotNull IndexBuilder builder) {
+        super(builder);
     }
 
     @NotNull @Override
     public Bson ifNull() {
         return Indexes.ascending("_id");
+    }
+
+    @Override @NotNull
+    public IndexBuilder clone() {
+        return new IndexBuilder(this);
     }
 
     /**

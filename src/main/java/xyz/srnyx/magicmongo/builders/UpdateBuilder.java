@@ -46,17 +46,22 @@ public class UpdateBuilder extends MongoBsonBuilder<UpdateBuilder> {
     }
 
     /**
-     * Creates a new {@link UpdateBuilder} instance with the given {@link UpdateBuilder}
+     * Duplicates the given {@link UpdateBuilder} instance
      *
-     * @param   updateBuilder    the {@link UpdateBuilder} to start with
+     * @param   builder the {@link UpdateBuilder} to duplicate
      */
-    public UpdateBuilder(@NotNull UpdateBuilder updateBuilder) {
-        super(updateBuilder.bson);
+    public UpdateBuilder(@NotNull UpdateBuilder builder) {
+        super(builder);
     }
 
     @NotNull @Override
     public Bson ifNull() {
         return Updates.combine();
+    }
+
+    @Override @NotNull
+    public UpdateBuilder clone() {
+        return new UpdateBuilder(this);
     }
 
     /**

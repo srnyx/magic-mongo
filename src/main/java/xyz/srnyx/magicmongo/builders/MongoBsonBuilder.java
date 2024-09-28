@@ -36,12 +36,24 @@ public abstract class MongoBsonBuilder<T extends MongoBsonBuilder<T>> {
     }
 
     /**
+     * Duplicates the given {@link MongoBsonBuilder} instance
+     *
+     * @param   builder the {@link MongoBsonBuilder} to duplicate
+     */
+    public MongoBsonBuilder(@NotNull T builder) {
+        this.bson = builder.bson;
+    }
+
+    /**
      * The {@link Bson} to return if the {@link #bson} is null when {@link #build() building}
      *
      * @return  the {@link Bson} to return if the {@link #bson} is null
      */
     @NotNull
     public abstract Bson ifNull();
+
+    @Override @NotNull
+    public abstract MongoBsonBuilder<T> clone();
 
     /**
      * Builds the {@link Bson} object

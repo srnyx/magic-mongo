@@ -46,17 +46,22 @@ public class ProjectionBuilder extends MongoBsonBuilder<ProjectionBuilder> {
     }
 
     /**
-     * Creates a new {@link ProjectionBuilder} instance with the given {@link ProjectionBuilder}
+     * Duplicates the given {@link ProjectionBuilder} instance
      *
-     * @param   projectionBuilder   the {@link ProjectionBuilder} to start with
+     * @param   builder the {@link ProjectionBuilder} to duplicate
      */
-    public ProjectionBuilder(@NotNull ProjectionBuilder projectionBuilder) {
-        super(projectionBuilder.bson);
+    public ProjectionBuilder(@NotNull ProjectionBuilder builder) {
+        super(builder);
     }
 
     @NotNull @Override
     public Bson ifNull() {
         return Projections.include("_id");
+    }
+
+    @Override @NotNull
+    public ProjectionBuilder clone() {
+        return new ProjectionBuilder(this);
     }
 
     /**

@@ -46,17 +46,22 @@ public class SortBuilder extends MongoBsonBuilder<SortBuilder> {
     }
 
     /**
-     * Creates a new {@link SortBuilder} instance with the given {@link SortBuilder}
+     * Duplicates the given {@link SortBuilder} instance
      *
-     * @param   sortBuilder the {@link SortBuilder} to start with
+     * @param   builder the {@link SortBuilder} to duplicate
      */
-    public SortBuilder(@NotNull SortBuilder sortBuilder) {
-        super(sortBuilder.bson);
+    public SortBuilder(@NotNull SortBuilder builder) {
+        super(builder);
     }
 
     @NotNull @Override
     public Bson ifNull() {
         return Sorts.ascending("_id");
+    }
+
+    @Override @NotNull
+    public SortBuilder clone() {
+        return new SortBuilder(this);
     }
 
     /**

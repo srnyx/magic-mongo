@@ -27,9 +27,23 @@ public class FilterBuilder extends MongoBsonBuilder<FilterBuilder> {
         super(filter);
     }
 
+    /**
+     * Duplicates the given {@link FilterBuilder} instance
+     *
+     * @param   builder the {@link FilterBuilder} to duplicate
+     */
+    public FilterBuilder(@NotNull FilterBuilder builder) {
+        super(builder);
+    }
+
     @NotNull @Override
     public Bson ifNull() {
         return Filters.empty();
+    }
+
+    @Override @NotNull
+    public MongoBsonBuilder<FilterBuilder> clone() {
+        return new FilterBuilder(this);
     }
 
     /**
