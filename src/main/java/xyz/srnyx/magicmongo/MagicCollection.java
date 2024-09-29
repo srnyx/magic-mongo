@@ -15,6 +15,7 @@ import com.mongodb.client.result.UpdateResult;
 import org.bson.Document;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.conversions.Bson;
+import org.bson.types.ObjectId;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -83,6 +84,18 @@ public class MagicCollection<T> implements MongoCollection<T> {
     @NotNull
     public List<T> findMany(@NotNull Bson filter) {
         return find(filter).into(new ArrayList<>());
+    }
+
+    /**
+     * Inserts a document in the collection and returns the inserted document's ID
+     *
+     * @param   t   the document to insert
+     *
+     * @return      the ID of the inserted document
+     */
+    @NotNull
+    public ObjectId insertOneReturnId(@NotNull T t) {
+        return Objects.requireNonNull(insertOne(t).getInsertedId()).asObjectId().getValue();
     }
 
     /**
