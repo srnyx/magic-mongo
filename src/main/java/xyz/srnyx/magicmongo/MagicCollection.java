@@ -14,12 +14,15 @@ import com.mongodb.client.result.UpdateResult;
 
 import org.bson.Document;
 import org.bson.codecs.configuration.CodecRegistry;
+import org.bson.codecs.pojo.annotations.BsonId;
+import org.bson.codecs.pojo.annotations.BsonProperty;
 import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -88,6 +91,7 @@ public class MagicCollection<T> implements MongoCollection<T> {
 
     /**
      * Inserts a document in the collection and returns the inserted document's ID
+     * <br>If the document has an ID field, it will be set to the inserted ID
      *
      * @param   t   the document to insert
      *
@@ -95,7 +99,37 @@ public class MagicCollection<T> implements MongoCollection<T> {
      */
     @NotNull
     public ObjectId insertOneReturnId(@NotNull T t) {
-        return Objects.requireNonNull(insertOne(t).getInsertedId()).asObjectId().getValue();
+        final ObjectId id = Objects.requireNonNull(insertOne(t).getInsertedId()).asObjectId().getValue();
+        // Use reflection to set ID of document object
+        final Field[] fields = t.getClass().getFields();
+        try {
+            // Get by BsonId annotation
+            for (final Field field : fields) if (field.isAnnotationPresent(BsonId.class) && field.getType().equals(ObjectId.class)) {
+                field.set(t, id);
+                return id;
+            }
+            // Get by BsonProperty annotation
+            for (final Field field : fields) {
+                if (!field.getType().equals(ObjectId.class)) continue;
+                final BsonProperty annotation = field.getAnnotation(BsonProperty.class);
+                if (annotation != null && annotation.value().equals("_id")) {
+                    field.set(t, id);
+                    return id;
+                }
+            }
+            // Get by field name
+            for (final Field field : fields) {
+                if (!field.getType().equals(ObjectId.class)) continue;
+                final String name = field.getName();
+                if (name.equals("_id") || name.equals("id")) {
+                    field.set(t, id);
+                    return id;
+                }
+            }
+        } catch (final IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        return id;
     }
 
     /**
