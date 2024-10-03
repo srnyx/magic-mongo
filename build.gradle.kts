@@ -12,7 +12,7 @@ plugins {
     id("com.gradleup.shadow") version "8.3.3"
 }
 
-setupJava("xyz.srnyx", "1.2.2", "Common framework for srnyx's MongoDB management", JavaVersion.VERSION_1_8)
+setupJava("xyz.srnyx", "2.0.0", "Common framework for srnyx's MongoDB management", JavaVersion.VERSION_1_8)
 
 repository(Repository.MAVEN_CENTRAL)
 dependencies {
