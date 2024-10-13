@@ -13,6 +13,8 @@ import org.bson.codecs.pojo.PojoCodecProvider;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import xyz.srnyx.magicmongo.codecs.UUIDCodec;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -136,13 +138,19 @@ public class MagicMongo {
     }
 
     /**
-     * Gets the default {@link CodecRegistry} with the {@link PojoCodecProvider} enabled
+     * Gets the default {@link CodecRegistry}
+     * <ul>
+     *     <li>{@link UUIDCodec}</li>
+     *     <li>{@link MongoClientSettings#getDefaultCodecRegistry()}</li>
+     *     <li>{@link PojoCodecProvider#builder() PojoCodecProvider.builder().automatic(true).build()}</li>
+     * </ul>
      *
      * @return  the default {@link CodecRegistry}
      */
     @NotNull
     public static CodecRegistry getDefaultCodecRegistry() {
         return CodecRegistries.fromRegistries(
+                CodecRegistries.fromCodecs(new UUIDCodec()),
                 MongoClientSettings.getDefaultCodecRegistry(),
                 CodecRegistries.fromProviders(PojoCodecProvider.builder().automatic(true).build()));
     }
