@@ -8,8 +8,8 @@ import xyz.srnyx.gradlegalaxy.utility.setupPublishing
 
 plugins {
     java
-    id("xyz.srnyx.gradle-galaxy") version "1.3.2"
-    id("com.gradleup.shadow") version "8.3.3"
+    id("xyz.srnyx.gradle-galaxy") version "1.3.3"
+    id("com.gradleup.shadow") version "8.3.5"
 }
 
 setupJava("xyz.srnyx", "2.0.0", "Common framework for srnyx's MongoDB management", JavaVersion.VERSION_1_8)
