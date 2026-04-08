@@ -1,30 +1,30 @@
-# Magic Mongo [![Release](https://jitpack.io/v/srnyx/magic-mongo.svg)](https://jitpack.io/#xyz.srnyx/magic-mongo)
+# Magic Mongo [![Release](https://repo.srnyx.com/api/badge/latest/releases/xyz/srnyx/magic-mongo?color=006d82&name=Reposilite)](https://repo.srnyx.com/#/releases/xyz/srnyx/magic-mongo)
 
 Common framework for srnyx's MongoDB management
 
 ### Wiki / Javadocs
 
 - **Wiki:** [github.com/srnyx/magic-mongo/wiki](https://github.com/srnyx/magic-mongo/wiki)
-- **Javadocs:** [javadoc.jitpack.io/xyz/srnyx/magic-mongo/latest/javadoc/index.html](https://javadoc.jitpack.io/xyz/srnyx/magic-mongo/latest/javadoc/index.html)
+- **Javadocs:** [repo.srnyx.com/javadoc/releases/xyz/srnyx/magic-mongo/latest](https://repo.srnyx.com/javadoc/releases/xyz/srnyx/magic-mongo/latest)
 
 ## Importing
 
-You can import the library using [Jitpack](https://jitpack.io/#xyz.srnyx/magic-mongo). Make sure to replace `VERSION` with the version you want. You **MUST** use `implementation`.
+You can import the library using [Reposilite](https://repo.srnyx.com/#/releases/xyz/srnyx/magic-mongo). Make sure to replace `VERSION` with the version you want.
 
 - **Gradle Kotlin** (`build.gradle.kts`)**:**
 ```kotlin
 // Required plugins
 plugins { 
   java
-  id("com.github.johnrengelman.shadow") version "8.1.1" // https://github.com/johnrengelman/shadow/releases/latest
+  id("com.gradleup.shadow") version "8.3.9" // https://github.com/GradleUp/shadow/releases/latest
 }
-// Jitpack repository
+// Reposilite repository
 repositories { 
-  maven("https://jitpack.io")
+  maven("https://repo.srnyx.com/releases/")
 }
-// Lazy Library dependency declaration
+// Magic Mongo dependency declaration
 dependencies {
-  implementation("xyz.srnyx", "magic-mongo", "VERSION")
+  implementation("xyz.srnyx:magic-mongo:VERSION")
 }
 ```
 - **Gradle Groovy** (`build.gradle`)**:**
@@ -32,13 +32,13 @@ dependencies {
 // Required plugins
 plugins {
   id 'java'
-  id 'com.github.johnrengelman.shadow' version '8.1.1' // https://github.com/johnrengelman/shadow/releases/latest
+  id 'com.gradleup.shadow' version '8.3.9' // https://github.com/GradleUp/shadow/releases/latest
 }
-// Jitpack repository
+// Reposilite repository
 repositories {
-  maven { url = 'https://jitpack.io' }
+  maven { url = 'https://repo.srnyx.com/releases/' }
 }
-// Lazy Library dependency declaration
+// Magic Mongo dependency declaration
 dependencies {
   implementation 'xyz.srnyx:magic-mongo:VERSION'
 }
@@ -75,16 +75,16 @@ dependencies {
     </plugins>
   </build>
   ```
-    * Jitpack repository
+    * Reposilite repository
   ```xml
    <repositories>
         <repository>
-            <id>jitpack</id>
-            <url>https://jitpack.io</url>
+            <id>srnyx</id>
+            <url>https://repo.srnyx.com/releases/</url>
         </repository>
     </repositories>
   ```
-    * Dependency declaration
+    * Magic Mongo dependency declaration
   ```xml
     <dependencies>
         <dependency>
