@@ -17,7 +17,7 @@ plugins {
 
 setupJava(JavaSetupConfig(
     group = "xyz.srnyx",
-    version = "2.0.0",
+    version = "2.0.1",
     description = "Common framework for srnyx's MongoDB management",
     javaVersion = JavaVersion.VERSION_1_8))
 
