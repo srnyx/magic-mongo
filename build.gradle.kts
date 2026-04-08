@@ -16,8 +16,8 @@ setupJava("xyz.srnyx", "2.0.0", "Common framework for srnyx's MongoDB management
 
 repository(Repository.MAVEN_CENTRAL)
 dependencies {
-    implementation("org.mongodb", "mongodb-driver-sync", "5.2.0")
-    compileOnly("org.jetbrains" , "annotations", "25.0.0")
+    api("org.mongodb:mongodb-driver-sync:5.6.4")
+    compileOnly("org.jetbrains:annotations:26.1.0")
 }
 
 setupPublishing(
