@@ -1,5 +1,5 @@
 import xyz.srnyx.gradlegalaxy.data.config.JavaSetupConfig
-import xyz.srnyx.gradlegalaxy.data.config.publishingSimpleConfig
+import xyz.srnyx.gradlegalaxy.data.config.publishing.publishingSimpleConfig
 import xyz.srnyx.gradlegalaxy.data.pom.DeveloperData
 import xyz.srnyx.gradlegalaxy.data.pom.LicenseData
 import xyz.srnyx.gradlegalaxy.enums.Repository
@@ -11,8 +11,8 @@ import xyz.srnyx.gradlegalaxy.utility.setupPublishingEnv
 plugins {
     java
     `java-library`
-    id("xyz.srnyx.gradle-galaxy") version "2.1.0"
-    id("com.gradleup.shadow") version "8.3.9"
+    id("xyz.srnyx.gradle-galaxy") version "3.0.0"
+    id("com.gradleup.shadow") version "9.4.2"
 }
 
 setupJava(JavaSetupConfig(
@@ -23,7 +23,7 @@ setupJava(JavaSetupConfig(
 
 repository(Repository.MAVEN_CENTRAL)
 dependencies {
-    api("org.mongodb:mongodb-driver-sync:5.6.4")
+    api("org.mongodb:mongodb-driver-sync:5.8.0")
     compileOnly("org.jetbrains:annotations:26.1.0")
 }
 

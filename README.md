@@ -1,4 +1,4 @@
-# Magic Mongo [![Release](https://repo.srnyx.com/api/badge/latest/releases/xyz/srnyx/magic-mongo?color=006d82&name=Reposilite)](https://repo.srnyx.com/#/releases/xyz/srnyx/magic-mongo)
+# Magic Mongo [![Release](https://repo.srnyx.com/api/badge/latest/releases/xyz/srnyx/magic-mongo?color=006d82&name=Release)](https://repo.srnyx.com/#/releases/xyz/srnyx/magic-mongo) [![Snapshot](https://repo.srnyx.com/api/badge/latest/snapshots/xyz/srnyx/magic-mongo?color=006d82&name=Snapshot)](https://repo.srnyx.com/#/snapshots/xyz/srnyx/magic-mongo)
 
 Common framework for srnyx's MongoDB management
 
@@ -16,7 +16,7 @@ You can import the library using [Reposilite](https://repo.srnyx.com/#/releases/
 // Required plugins
 plugins { 
   java
-  id("com.gradleup.shadow") version "8.3.9" // https://github.com/GradleUp/shadow/releases/latest
+  id("com.gradleup.shadow") version "9.4.2" // https://github.com/GradleUp/shadow/releases/latest
 }
 // Reposilite repository
 repositories { 
@@ -32,7 +32,7 @@ dependencies {
 // Required plugins
 plugins {
   id 'java'
-  id 'com.gradleup.shadow' version '8.3.9' // https://github.com/GradleUp/shadow/releases/latest
+  id 'com.gradleup.shadow' version '9.4.2' // https://github.com/GradleUp/shadow/releases/latest
 }
 // Reposilite repository
 repositories {
