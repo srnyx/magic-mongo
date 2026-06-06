@@ -96,15 +96,17 @@ public class MagicCollection<T> implements MongoCollection<T> {
      * @return      the ID of the inserted document
      */
     @NotNull
-    public ObjectId insertOneReturnId(@NotNull T t) {
+    public ObjectId insertOneReturnObjectId(@NotNull T t) {
         final ObjectId id = Objects.requireNonNull(insertOne(t).getInsertedId()).asObjectId().getValue();
         // Use reflection to set ID of document object
         final Field[] fields = t.getClass().getFields();
         try {
             // Get by BsonId annotation
-            for (final Field field : fields) if (field.isAnnotationPresent(BsonId.class) && field.getType().equals(ObjectId.class)) {
-                field.set(t, id);
-                return id;
+            for (final Field field : fields) {
+                if (field.isAnnotationPresent(BsonId.class) && field.getType().equals(ObjectId.class)) {
+                    field.set(t, id);
+                    return id;
+                }
             }
             // Get by BsonProperty annotation
             for (final Field field : fields) {
