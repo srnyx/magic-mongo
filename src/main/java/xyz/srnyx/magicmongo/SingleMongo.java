@@ -1,7 +1,6 @@
 package xyz.srnyx.magicmongo;
 
 import org.bson.codecs.configuration.CodecRegistry;
-
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

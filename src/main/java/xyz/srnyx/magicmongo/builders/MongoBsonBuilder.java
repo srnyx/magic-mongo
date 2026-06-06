@@ -1,7 +1,6 @@
 package xyz.srnyx.magicmongo.builders;
 
 import org.bson.conversions.Bson;
-
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
